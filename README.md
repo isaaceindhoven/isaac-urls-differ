@@ -6,13 +6,13 @@
 
 ## What does this do?
 
-Compare live version of pages based on their URL with local caches copies and see what has changed.
+Fetch URLs and compare the content with local cached copies. See the differences in a nicely formatted report.
 
-Only the page's basic content is compared, it does not also compare referenced files. For example: if the URL returns HTML then only the HTML itself is compated, not the CSS, JavaScript, Images, etc.
+Only the page's content is compared, it does include referenced files in the comparisson. For example: if the URL returns HTML then only the HTML itself is compated, not the CSS, JavaScript, images, etc.
 
 The differences will be nicely formatted in a report on disk. Minor differences like whitespace and formatting will be ignored. Additionally, you can specify which differences need to be ignored.
 
-URLs can either be compared to themselves or to other URLs. Comparing a URL to a cached copy of itself allows you to check if a page has changed over time. This is useful during refactoring to see if a site is still up and is showing the same html. Comparing a URL to another URL is useful when migration sites, since this allows you to see if a migrated page is the same as the original.
+URLs can either be compared to themselves or to other URLs. Comparing a URL to a cached copy of itself allows you to check if a page has changed over time. This is useful when refactoring a live site to see if it is still up and is showing the same html. Comparing a URL to another URL is useful when migrating sites, since this allows you to see if a migrated page is the same as the original.
 
 You can define multiple sets of URLs, called profiles. When running the tool, you'll need to specify which profile you'd like to use. Each profile has its own cache, ignore rules and stored reports.
 

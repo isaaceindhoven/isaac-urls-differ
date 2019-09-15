@@ -1,7 +1,7 @@
 {
   "name": "dev-hub-changes-checker",
   "version": "1.0.0",
-  "description": "Compare live version of pages based on their URL with local caches copies and see what has changed.",
+  "description": "Fetch URLs and compare the content with local cached copies. See the differences in a nicely formatted report.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
