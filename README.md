@@ -12,6 +12,8 @@ Only the page's content is compared, it does include referenced files in the com
 
 The differences will be nicely formatted in a report on disk. Minor differences like whitespace and formatting will be ignored. Additionally, you can specify which differences need to be ignored.
 
+![Report showing two files with changes](docs/report-closed.png "Report showing two files with changes")
+
 URLs can either be compared to themselves or to other URLs. Comparing a URL to a cached copy of itself allows you to check if a page has changed over time. This is useful when refactoring a live site to see if it is still up and is showing the same html. Comparing a URL to another URL is useful when migrating sites, since this allows you to see if a migrated page is the same as the original.
 
 You can define multiple sets of URLs, called profiles. When running the tool, you'll need to specify which profile you'd like to use. Each profile has its own cache, ignore rules and stored reports.
@@ -91,6 +93,8 @@ You can completely delete a profile's cache folder. The next time the comparison
 
 When differences are found during a comparison the system will create a new report.html file in the profile's `report` folder. You can open the html file in a browser to see the differences per URL.
 
+![Report showing two files with changes one of which is opened](docs/report-open.png "Report showing two files with changes one of which is opened")
+
 If the report file is very large it can take a long time to open the file in a browser. In such a case it's often a good idea to first only add a limited number of URLs to the `urls` folder. Then run the comparison and open the resulting smaller report file. Add all irrelevant differences to a file in the `ignore` folder and run the comparison again with all URLs. The resulting file will be much smaller since all irrelevant differences that occurred on all pages are now omitted from the report file.
 
 ## Ignoring differences
@@ -99,7 +103,13 @@ Some differences are not relevant and should be ignored. This is managed through
 
 The format that is used in these files is an internal representation and is tricky to manually edit. That is why the generated report file has tooling to facilitate the creation of a list of differences to ignore.
 
-To use it open the report.html file in a browser and select the text that contains the irrelevant differences. Next click on the `Add selected diffs to list` button. After having added all differences that you want to ignore click on the `Show list` button and copy the list to the clipboard. Paste it to a file and save that in the `ignore` folder of the used profile. The next time the comparison is run these differences will no longer be shown in the report. 
+To use it open the report.html file in a browser and select the text that contains the irrelevant differences. Next click on the `Add selected diffs to list` button. 
+
+![Report with changes that should be ignored selected](docs/report-selected.png "Report with changes that should be ignored selected")
+
+After having added all differences that you want to ignore click on the `Show list` button and copy the list to the clipboard. Paste it to a file and save that in the `ignore` folder of the used profile. The next time the comparison is run these differences will no longer be shown in the report. 
+
+![Report showing selected changes to ignore as copyable list](docs/report-show-list.png "Report showing selected changes to ignore as copyable list")
 
 Make sure the files in the `ignore` folder all contain valid json. All rules must be inside a json array. For instance:
 ```
