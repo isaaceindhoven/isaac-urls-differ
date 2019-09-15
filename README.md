@@ -122,7 +122,7 @@ You can completely delete a profile's cache folder. The next time the comparison
 
 Only when differences are found during a comparison the system will create a new report.html file in the profile's `/report` folder. You can open the html file in a browser to see the differences per URL. 
 
-The page shows a list of all pages for which differences were found. For each file in the list multiple things are shown:
+The report shows a list of all pages for which differences were found. For each file in the list multiple things are shown:
 1. The type of url comparison: `identical urls` or `different urls`
 2. The type of difference: 
    1. `http 404`, which means the URL currently returns a 404 while it did not do that in the past. 
