@@ -6,7 +6,9 @@
 
 ## What does this do?
 
-Compare live version of pages based on their URL with local caches copies and see what has changed. 
+Compare live version of pages based on their URL with local caches copies and see what has changed.
+
+Only the page's basic content is compared, it does not also compare referenced files. For example: if the URL returns HTML then only the HTML itself is compated, not the CSS, JavaScript, Images, etc.
 
 The differences will be nicely formatted in a report on disk. Minor differences like whitespace and formatting will be ignored. Additionally, you can specify which differences need to be ignored.
 
