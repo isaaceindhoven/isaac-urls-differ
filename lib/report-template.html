@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <style>
+        ins {
+            background: #e6ffe6;
+        }
+
+        del {
+            background: #ffe6e6;
+        }
+
+        .ellipsis {
+            color: blue;
+        }
+
+        .header {
+            top: 0;
+            width: 100%;
+            height: 45px;
+            position: fixed;
+            z-index: 2;
+            background: #6c757d;
+            box-shadow: 0px 3px 4px 0px rgba(108, 117, 125, 0.6);
+        }
+
+        .header button {
+            margin: 2px 10px;
+        }
+
+        .accordion {
+            margin-top: 45px
+        }
+
+        ::selection {
+            background: #78b8fd;
+        }
+
+        del::selection {
+            background: #f99393;
+        }
+
+        ins::selection {
+            background: #9bfb9b;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header mb-0 d-flex justify-content-center align-items-center">
+        <button id="addBtn" class="btn btn-primary btn-sm" disabled>
+            Add selected diffs to list&nbsp;&nbsp;<span class="badge badge-light" id="nrOfCurrentSelections">0</span>
+        </button>&nbsp;&nbsp;&nbsp;
+        <button id="showBtn" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal" disabled>
+            Show list&nbsp;&nbsp;<span class="badge badge-light" id="nrOfTotalSelections">0</span>
+        </button>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Selected differences</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>To have the node application ignore the selected differences please copy the lines below and add them to a new or existing .json file in the /ignore folder. 
+                    Make sure the lines below are wrapped inside an array inside the .json file.</p>
+                <pre></pre>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="clearBtn">Clear</button>
+                <button type="button" class="btn btn-primary" id="copyBtn">Copy<span id="copiedIndicator" class="collapse">&nbsp;&nbsp;<span class="badge badge-light">✔️</span></span></button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion" id="accordionExample">
+        {{ body }}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script>
+        const $diffNodes = $('ins, del')
+        let savedRules = []
+        let nrOfCurrentSelections = 0
+        let copiedIndicatorTimer
+        let debounceTimer
+
+        const getSelectedDiffs = () => {
+            const diffs = []
+            var selObj = window.getSelection();
+            $diffNodes.each((index, elem) => {
+                if (selObj.containsNode(elem)) {
+                    const type = elem.tagName === 'DEL' ? -1 : 1
+                    diffs.push([type, elem.innerHTML])
+                }
+            })
+            return diffs
+        }
+
+        const updateView = () => {
+            $('#addBtn').attr("disabled", nrOfCurrentSelections === 0);
+            $('#showBtn').attr("disabled", savedRules.length === 0);
+            $('#nrOfCurrentSelections').text(nrOfCurrentSelections)
+            $('#nrOfTotalSelections').text(savedRules.length)
+        }
+
+        const getSavedRulesAsString = () => {
+            return JSON.stringify(savedRules)
+                    .replace(/\[\[/g, '  [')
+                    .replace(/],/g, '],\n  ')
+                    .replace(/]]/g, ']')
+        }
+
+        const htmlDecode = (input) => {
+            var doc = new DOMParser().parseFromString(input, "text/html");
+            return doc.documentElement.textContent;
+        }
+
+        document.addEventListener('selectionchange', () => {
+            clearTimeout(debounceTimer)
+            debounceTimer = setTimeout(() => {
+                nrOfCurrentSelections = getSelectedDiffs().length
+                updateView()
+            }, 100)
+        });
+
+        $('#addBtn').on('click', () => {
+            getSelectedDiffs().forEach((s) => {
+                const unescaped = [s[0], htmlDecode(s[1])]
+                unescaped[1] = unescaped[1].substring(1, unescaped[1].length - 1)
+                if (!savedRules.some(i => i[0] === unescaped[0] && i[1] === unescaped[1] )) {
+                    savedRules.push(unescaped)
+                }
+            })
+            updateView()
+        })
+
+        $('#showBtn').on('click', () => {
+            $('#copiedIndicator').collapse('hide')
+            $('.modal-body pre').text(getSavedRulesAsString())
+            $('#modal').modal('show')
+        })
+
+        $('#clearBtn').on('click', () => {
+            savedRules = []
+            updateView()
+        })
+
+        $('#copyBtn').on('click', () => {
+            navigator.clipboard.writeText(getSavedRulesAsString()).then(function() {
+                clearTimeout(copiedIndicatorTimer)
+                $('#copiedIndicator').collapse('show')
+                copiedIndicatorTimer = setTimeout(() => $('#copiedIndicator').collapse('hide'), 2000)
+            }, function() {
+                alert('Could not copy to clipboard. Please copy manually')
+            });
+        })
+
+        $('.collapse').collapse()
+    </script>
+</body>
+</html>

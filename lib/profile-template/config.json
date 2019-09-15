@@ -1,0 +1,9 @@
+{
+    "nrOfParallelRequests": 8,
+    "snippetContextSize": 100,
+    "folderDateFormat": "YYYY-MM-DD_kk-mm-ss",
+    "cacheDirectory": "cache",
+    "urlsDirectory": "urls",
+    "reportDirectory": "report",
+    "ignoreDirectory": "ignore"
+}

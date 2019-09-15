@@ -1,0 +1,34 @@
+{
+    "required": true,
+    "type": "object",
+    "properties": {
+        "nrOfParallelRequests": {
+            "required": true,
+            "type": "number"
+        },
+        "snippetContextSize": {
+            "required": true,
+            "type": "number"
+        },
+        "folderDateFormat": {
+            "required": true,
+            "type": "string"
+        },
+        "cacheDirectory": {
+            "required": true,
+            "type": "string"
+        },
+        "urlsDirectory": {
+            "required": true,
+            "type": "string"
+        },
+        "reportDirectory": {
+            "required": true,
+            "type": "string"
+        },
+        "ignoreDirectory": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "dev-hub-changes-checker",
+  "version": "1.0.0",
+  "description": "Compare live version of pages based on their URL with local caches copies and see what has changed.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Koen Peters, ISAAC",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "copy-dir": "^1.2.0",
+    "escape-html": "^1.0.3",
+    "is-my-json-valid": "^2.20.0",
+    "js-beautify": "^1.10.2",
+    "md5": "^2.2.1",
+    "moment": "^2.24.0",
+    "text-diff": "^1.0.1"
+  }
+}
