@@ -67,7 +67,7 @@ node index -r profile-name
 ```
 
 # Defining URLs
-The comparison will use all URLs defined in all files in a profile's `/urls` folder. All files in that folder must be valid URL definition files. A valid file is a json file that contains an array `[...]` of URL definitions.
+The comparison will use all .json URLs defined in all files in a profile's `/urls` folder. All files in that folder must be valid URL definition files. A valid file is a file with the .json extension that contains an array `[...]` of URL definitions.
 
 There are two types of URL definitions that are used in two different situations:
 
@@ -147,7 +147,7 @@ After having added all differences that you want to ignore click on the `Show li
 
 ![Report showing selected changes to ignore as copiable list](docs/report-show-list.png "Report showing selected changes to ignore as copiable list")
 
-Make sure the files in the `/ignore` folder all contain valid json. All rules must be inside a json array. For instance:
+Make sure the files in the `/ignore` folder are all file with the .json extension and all contain valid json. All rules must be inside a json array. For instance:
 ```
 [
   [-1,"Visa"],
