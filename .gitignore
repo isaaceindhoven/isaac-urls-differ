@@ -23,8 +23,8 @@ Thumbs.db
 .vscode
 
 # Project specific 
-cache
-urls
-report
-ignore
-profiles
+/cache
+/urls
+/report
+/ignore
+/profiles
