@@ -168,9 +168,9 @@ If the report file is very large it can take a long time to open the file in a b
 
 ## How are 404 responses handled?
 
-When a fetched URL returns a 404 the application will retry up to 3 times. When the last try still returns a 404 the URL is marked as 404 and added to the report file. 
+When a fetched URL returns a 404 the application will by default retry up to 3 times. In between retries the system will wait for some time to allow the server to recover. The amount of time that is waited increases linearly with every attempt. When the last try still returns a 404 the URL is marked as 404 and added to the report file. You can change the number of retries for 404 errors by setting a value for the `maxNrOf404ErrorsInAttempts` setting in the `config.json` of the profile.
 
 
 ## How are non 404 responses handled?
 
-When encountering a non 404 error when doing a request, the application will retry until it's successful. In between retries the system will wait for some time to allow the server to recover. The amount of time that is waited increases linearly with every attempt.
+With non-404 errors, just like with 404 errors, the system will retry. In this case the default number of retries is 20. In between retries the system will wait for some time to allow the server to recover. The amount of time that is waited increases linearly with every attempt. When the last try still returns a non-404 error the URL is marked as 'error' and added to the report file. You can change the number of retries for non-404 errors by setting a value for the `maxNrOfNon404ErrorsInAttempts` setting in the `config.json` of the profile.

@@ -1,4 +1,6 @@
 {
+    "maxNrOf404ErrorsInAttempts": 4,
+    "maxNrOfNon404ErrorsInAttempts": 20,
     "nrOfParallelRequests": 8,
     "snippetContextSize": 100,
     "folderDateFormat": "YYYY-MM-DD_kk-mm-ss",

@@ -2,6 +2,14 @@
     "required": true,
     "type": "object",
     "properties": {
+        "maxNrOf404ErrorsInAttempts": {
+            "required": true,
+            "type": "number"
+        },
+        "maxNrOfNon404ErrorsInAttempts": {
+            "required": true,
+            "type": "number"
+        },
         "nrOfParallelRequests": {
             "required": true,
             "type": "number"
