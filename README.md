@@ -166,11 +166,11 @@ To speed things up, fetching of the URLs is parallelized using 8 different 'thre
 
 If the report file is very large it can take a long time to open the file in a browser. In such a case it's often a good idea to first only add a limited number of URLs to the `/urls` folder. Then run the comparison and open the resulting smaller report file. Add all irrelevant differences to a file in the `/ignore` folder and run the comparison again with all URLs. The resulting file will be much smaller since all irrelevant differences that occurred on all pages are now omitted from the report file.
 
-## How are 404 responses handled?
+## How are 404 error responses handled?
 
 When a fetched URL returns a 404 the application will by default retry up to 3 times. In between retries the system will wait for some time to allow the server to recover. The amount of time that is waited increases linearly with every attempt. When the last try still returns a 404 the URL is marked as 404 and added to the report file. You can change the number of retries for 404 errors by setting a value for the `maxNrOf404ErrorsInAttempts` setting in the `config.json` of the profile.
 
 
-## How are non 404 responses handled?
+## How are non 404 error responses handled?
 
 With non-404 errors, just like with 404 errors, the system will retry. In this case the default number of retries is 20. In between retries the system will wait for some time to allow the server to recover. The amount of time that is waited increases linearly with every attempt. When the last try still returns a non-404 error the URL is marked as 'error' and added to the report file. You can change the number of retries for non-404 errors by setting a value for the `maxNrOfNon404ErrorsInAttempts` setting in the `config.json` of the profile.
