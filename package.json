@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engines": {
+    "node": ">=10.1"
+  },
   "author": "Koen Peters, ISAAC",
   "license": "MIT",
   "dependencies": {
