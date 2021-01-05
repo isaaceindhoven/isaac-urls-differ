@@ -12,7 +12,7 @@
   "author": "Koen Peters, ISAAC",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "copy-dir": "^1.2.0",
     "escape-html": "^1.0.3",
     "is-my-json-valid": "^2.20.0",
